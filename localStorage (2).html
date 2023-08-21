@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+   <style>
+      #infopage {
+         background: aqua;
+         margin: 10px;
+         padding: 10px;
+      }
+   </style>
+</head>
+<body>
+
+   <form action="" id="form">
+      <input type="text" placeholder="Name" name="name"> <br>
+      <input type="text" placeholder="Email" name="email"> <br>
+      <input type="text" placeholder="Password" name="password"> <br>
+      <button type="submit">Submit</button>
+   </form>
+
+   <div id="container"></div>
+
+
+<script>
+const form = document.getElementById('form');
+const container = document.getElementById('container');
+     
+let data = [];
+
+form.addEventListener('submit', function(event){
+   
+   event.preventDefault();
+   
+   var name = event.target.name.value;
+   var email = event.target.email.value;
+   var password = event.target.password.value;
+   
+   data.push({
+              'Name': name,
+              'Email': email,
+              'Password': password
+   });
+   
+   localStorage.setItem('data', JSON.stringify(data));
+       
+   displayData();
+})
+
+
+
+function displayData(){
+   let userdata = JSON.parse(localStorage.getItem('data')) ?? [];
+   let page = '';
+   for (const user of userdata){
+      page += 
+         `<div id="infopage">
+            Name: ${user.Name} <br>
+            Email: ${user.Email} <br>
+            Password: ${user.Password}
+          </div>`;
+   }
+   container.innerHTML = page;
+}
+
+displayData();
+
+</script>
+
+
+
+
+
+</body>
+</html>
